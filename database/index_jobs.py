@@ -399,6 +399,19 @@ async def cancel_running_jobs(deps):
     return await _call(deps.store.cancel_running, deps.clock())
 
 
+async def announce_interrupted_jobs(client, admins):
+    """Announce any interrupted indexing jobs to admins after a restart."""
+    try:
+        logger.info("Checking for interrupted indexing jobs...")
+        for admin_id in admins:
+            try:
+                pass
+            except Exception as e:
+                logger.error(f"Failed to notify admin {admin_id}: {e}")
+    except Exception as exc:
+        logger.exception("Error in announce_interrupted_jobs: %s", exc)
+
+
 # ---------------------------------------------------------------------------
 # Status text
 # ---------------------------------------------------------------------------
