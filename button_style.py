@@ -63,6 +63,9 @@ def enable_primary_buttons():
         InlineKeyboardButton.__init__ = init
         InlineKeyboardButton._rdx_primary_buttons = True
     else:
-        from button_style_legacy import enable_primary_buttons as enable_legacy_buttons
-
-        enable_legacy_buttons()  # sets the _rdx_primary_buttons flag itself
+        try:
+            from button_style_legacy import enable_primary_buttons as enable_legacy_buttons
+            enable_legacy_buttons()  # sets the _rdx_primary_buttons flag itself
+        except ImportError:
+            # Fallback agar legacy file na ho toh error ignore karega
+            pass
