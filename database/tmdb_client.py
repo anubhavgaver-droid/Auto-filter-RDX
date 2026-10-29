@@ -212,6 +212,15 @@ async def _request_json(endpoint, params=None):
     return None
 
 
+async def get_tmdb_imdb_id(tmdb_id, media_type="movie"):
+    """Fetch IMDb ID corresponding to a TMDB ID using TMDB's external_ids endpoint."""
+    endpoint = f"{media_type}/{tmdb_id}/external_ids"
+    data = await _request_json(endpoint)
+    if data:
+        return data.get("imdb_id")
+    return None
+
+
 async def search_tmdb(query, bulk=False, file=None):
     """Search TMDB movies and optionally return a single best match."""
     raw = query or ""
